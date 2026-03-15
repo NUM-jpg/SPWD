@@ -139,7 +139,27 @@
       </div>
     </div>
 
-    <div class="char-card"><div class="char-img"></div><div class="char-info"><h3 class="char-name">준비 중</h3><div class="char-subtitle">COMING SOON</div></div></div>
+    <div class="char-card" onclick="openModal2()"> <div class="char-img" style="background-image: url('이미지주소_넣는곳');"></div>
+  
+  <div class="char-info">
+    <div class="char-tags">
+      <span class="tag rank-s">IQ 50</span>
+      <span class="tag role">전사</span>
+    </div>
+    
+    <h3 class="char-name">캐릭터 이름</h3>
+    <div class="char-subtitle">CHARACTER PROFILE</div>
+    
+    <div class="char-quote">
+      "여기에 캐릭터가 할 법한 멍청하고 멋진 대사를 적어주세요!"
+    </div>
+    
+    <div class="char-desc">
+      <p>인물에 대한 짧은 설명을 여기에 적습니다.</p>
+      <small style="color:#ff9f43; cursor:pointer;">더 보려면 클릭하세요</small>
+    </div>
+  </div>
+</div>
     <div class="char-card"><div class="char-img"></div><div class="char-info"><h3 class="char-name">준비 중</h3><div class="char-subtitle">COMING SOON</div></div></div>
     <div class="char-card"><div class="char-img"></div><div class="char-info"><h3 class="char-name">준비 중</h3><div class="char-subtitle">COMING SOON</div></div></div>
     <div class="char-card"><div class="char-img"></div><div class="char-info"><h3 class="char-name">준비 중</h3><div class="char-subtitle">COMING SOON</div></div></div>
@@ -155,46 +175,73 @@
   </div>
 </section>
 
+<div class="char-card" onclick="openModal(this)">
+      <div class="char-img" style="background-image: url('여기에_이미지_주소');"></div>
+      <div class="char-info">
+        <div class="char-tags">
+          <span class="tag rank-s">IQ 50</span>
+          <span class="tag role">전사</span>
+        </div>
+        <h3 class="char-name">새로운 영웅</h3>
+        <div class="char-subtitle">CHARACTER PROFILE</div>
+        <div class="char-quote">"나의 도끼는 지능보다 무겁다!"</div>
+        <div class="char-desc">
+          <p>이 캐릭터에 대한 상세 설명을 여기에 적으세요.</p>
+          <small style="color:#ff9f43;">더 보려면 클릭하세요</small>
+        </div>
+      </div>
+    </div>
+    
+    </div>
+
 <div id="modalOverlay" class="modal-overlay" onclick="closeModalOutside(event)">
   <div class="modal-content">
     <span class="close-btn" onclick="closeModal()">&times;</span>
-    <div class="modal-left" style="background-image: url('https://i.ifh.cc/j9Jcny.jpg');">
+    <div id="modalImg" class="modal-left">
       <div class="modal-left-info">
-        <span class="modal-left-tag">IQ 90 / 대통령</span>
-        <h2 class="modal-left-name">빈 고여</h2>
+        <span id="modalTag" class="modal-left-tag"></span>
+        <h2 id="modalName" class="modal-left-name"></h2>
       </div>
     </div>
     <div class="modal-right">
-      <div style="font-size: 0.8em; color: #64748b; margin-bottom: 10px; letter-spacing: 2px;">CHARACTER PROFILE</div>
-      <div class="modal-quote">"하하! 내 주먹맛 보고싶지 않아? 대통령한테 맞는걸 영광으로 알라구!"</div>
-      <div class="attr-grid">
-        <div class="attr-box"><small>성격</small><span>쾌활, 친근, 열정, 순수</span></div>
-        <div class="attr-box"><small>외모 특징</small><span>청발, 금색 눈동자</span></div>
-      </div>
+      <div class="modal-quote" id="modalQuote"></div>
       <div class="char-desc">
         <div class="profile-section-title">인물 특징</div>
-        <p style="color: #94a3b8; font-size: 0.95em; line-height: 1.8;">
-          현대 문명이 무너진 '대퇴화 시대', 인류 평균 IQ가 50까지 떨어진 세상에서 무려 **IQ 90**이라는 경이로운 지능을 인정받아 대통령이 되었습니다.<br><br>
-          비록 말보다 주먹이 앞서고 가끔 엉뚱한 명령을 내리기도 하지만, 그 누구보다 순수한 열정으로 백성들을 지킵니다.
-        </p>
+        <p id="modalDesc" style="color: #94a3b8; font-size: 0.95em; line-height: 1.8;"></p>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  function openModal() {
+  function openModal(card) {
+    // 카드에서 데이터 추출
+    const name = card.querySelector('.char-name').innerText;
+    const img = card.querySelector('.char-img').style.backgroundImage;
+    const tag = card.querySelector('.char-tags').innerText;
+    const quote = card.querySelector('.char-quote').innerText;
+    const desc = card.querySelector('.char-desc p').innerText;
+
+    // 모달에 데이터 삽입
+    document.getElementById('modalName').innerText = name;
+    document.getElementById('modalImg').style.backgroundImage = img;
+    document.getElementById('modalTag').innerText = tag;
+    document.getElementById('modalQuote').innerText = quote;
+    document.getElementById('modalDesc').innerText = desc;
+
     document.getElementById('modalOverlay').style.display = 'flex';
     document.body.style.overflow = 'hidden';
   }
+
   function closeModal() {
     document.getElementById('modalOverlay').style.display = 'none';
     document.body.style.overflow = 'auto';
   }
+
   function closeModalOutside(event) {
     if (event.target.id === 'modalOverlay') closeModal();
   }
 </script>
-
+  
 </body>
 </html>
