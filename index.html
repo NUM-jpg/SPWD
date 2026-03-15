@@ -1,75 +1,269 @@
-<div style="background-color: #121212; border: 1px solid #333; border-radius: 20px; color: #fff; font-family: 'Pretendard', sans-serif; max-width: 500px; margin: 0 auto; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>주요 인물 명부</title>
+<style>
+  /* 기본 배경 및 폰트 설정 */
+  body {
+    background-color: #0b0c10;
+    color: #e2e8f0;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    margin: 0;
+    padding: 50px 20px;
+  }
 
+  /* 섹션 전체 컨테이너 */
+  .characters-section {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
 
+  /* 섹션 제목 */
+  .section-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .section-header h2 {
+    font-size: 2.2em;
+    color: #f6ad55; /* 고급스러운 골드/오렌지 빛 */
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+  }
+  .section-header p {
+    color: #a0aec0;
+    font-size: 1.05em;
+  }
 
-  <div style="width: 100%; height: 150px; background-image: url('https://i.ifh.cc/j9Jcny.jpg'); background-size: cover; background-position: center;"></div>
+  /* 캐릭터 카드 그리드 (PC에선 2개씩, 모바일에선 1개씩) */
+  .character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+  }
 
+  /* 캐릭터 카드 본체 */
+  .char-card {
+    background-color: #1a202c;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .char-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(246, 173, 85, 0.15);
+    border-color: #4a5568;
+  }
 
+  /* 캐릭터 이미지 영역 */
+  .char-img {
+    width: 100%;
+    height: 350px;
+    background-color: #2d3748;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  /* 이미지 하단 그라데이션 (자연스러운 연결) */
+  .char-img::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, #1a202c);
+  }
 
-  <div style="padding: 0 20px; text-align: center; margin-top: -50px;">
+  /* 캐릭터 정보 영역 */
+  .char-info {
+    padding: 25px;
+  }
 
-    <img src="https://i.ifh.cc/PCkDG0.jpg" style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid #121212; object-fit: cover; background-color: #222;">
+  /* 클래스, 역할 태그 */
+  .char-tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  .tag {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .tag.rank-s { background-color: #ffd700; color: #000; }
+  .tag.rank-a { background-color: #e2e8f0; color: #1a202c; }
+  .tag.role { background-color: #4a5568; color: #fff; }
 
-    <div style="margin-top: 10px;">
+  /* 이름 및 부제목 */
+  .char-name {
+    font-size: 1.8em;
+    margin: 0 0 5px 0;
+    color: #fff;
+  }
+  .char-subtitle {
+    font-size: 0.8em;
+    color: #718096;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+  }
 
-      <span style="font-size: 1.5em; font-weight: bold; color: #fff;">-U` (사용자)</span><br>
+  /* 캐릭터 대사 */
+  .char-quote {
+    font-style: italic;
+    color: #cbd5e0;
+    border-left: 3px solid #f6ad55;
+    padding-left: 15px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+  }
 
-      <span style="font-size: 0.9em; color: #aaa;">22세기 냉동수면 생존자</span>
+  /* 주력 마법 / 외모 특징 (테이블 형태) */
+  .char-attributes {
+    background-color: #0b0c10;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 25px;
+  }
+  .attr-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #2d3748;
+  }
+  .attr-row:last-child {
+    border-bottom: none;
+  }
+  .attr-label { color: #a0aec0; font-size: 0.9em; }
+  .attr-value { color: #f6ad55; font-weight: bold; font-size: 0.9em; text-align: right;}
 
-    </div>
+  /* 역할 및 서사 */
+  .char-desc h4 {
+    color: #fff;
+    margin: 0 0 10px 0;
+    font-size: 1.1em;
+  }
+  .char-desc p {
+    color: #a0aec0;
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+  }
 
+  /* 비밀 열어보기 (아코디언 메뉴) */
+  details {
+    background-color: #2d3748;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  summary {
+    padding: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #ed64a6; /* 핑크빛 포인트 */
+    list-style: none;
+    outline: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  details[open] summary { border-bottom: 1px solid #1a202c; }
+  .details-content {
+    padding: 15px;
+    font-size: 0.9em;
+    color: #e2e8f0;
+    line-height: 1.6;
+    background-color: #1a202c;
+  }
+</style>
+</head>
+<body>
+
+<section class="characters-section">
+  <div class="section-header">
+    <h2>주요 인물 명부</h2>
+    <p>당신의 운명을 좌우할, 혹은 철저히 짓밟힐 자들의 기록입니다.</p>
   </div>
 
-
-
-  <div style="padding: 20px;">
-
-    <div style="margin-bottom: 15px;">
-
-      <div style="display: flex; justify-content: space-between; font-size: 0.85em; margin-bottom: 5px;">
-
-        <span>지능 (IQ)</span>
-
-        <span>??? / 200</span>
-
+  <div class="character-grid">
+    
+    <div class="char-card">
+      <div class="char-img" style="background-image: url('https://via.placeholder.com/600x800/2d3748/ffffff?text=Character+Image');"></div>
+      
+      <div class="char-info">
+        <div class="char-tags">
+          <span class="tag rank-s">S Class</span>
+          <span class="tag role">학생</span>
+        </div>
+        
+        <h3 class="char-name">세레나 발렌타인</h3>
+        <div class="char-subtitle">CHARACTER PROFILE</div>
+        
+        <div class="char-quote">
+          "천박한 C급 주제에 내게 말을 걸다니, 분수를 아세요."
+        </div>
+        
+        <div class="char-attributes">
+          <div class="attr-row">
+            <span class="attr-label">주력 마법</span>
+            <span class="attr-value">빙결계 절대영도</span>
+          </div>
+          <div class="attr-row">
+            <span class="attr-label">외모 특징</span>
+            <span class="attr-value">은발, 차가운 푸른 눈동자</span>
+          </div>
+        </div>
+        
+        <div class="char-desc">
+          <h4>역할 및 서사</h4>
+          <p>아카데미 정점에 군림하는 오만한 공작 영애. 과거의 약속을 잊고 당신을 배신했으나, 당신이 힘을 각성함에 따라 점점 집착과 후회에 빠져들게 됩니다.</p>
+        </div>
+        
+        <details>
+          <summary>비밀 보기♥</summary>
+          <div class="details-content">
+            겉으로는 완벽하고 차가운 얼음공주지만, 실상은 타인의 애정에 극도로 목말라 있으며 한 번 굴복하면 누구보다 순종적으로 변하는 타락의 여지가 있습니다.
+          </div>
+        </details>
       </div>
-
-      <div style="width: 100%; height: 8px; background-color: #333; border-radius: 4px;">
-
-        <div style="width: 80%; height: 100%; background: linear-gradient(90deg, #6a5acd, #a29bfe); border-radius: 4px;"></div>
-
-      </div>
-
     </div>
-
-
-
-    <div style="background-color: #1e1e1e; padding: 15px; border-radius: 12px; font-size: 0.9em; line-height: 1.6; color: #ddd;">
-
-       <b>"이 바보 같은 세상에서 살아남으려면..."</b><br>
-
-       3603년, 대퇴화된 지구에 홀로 떨어진 구시대의 유산. 당신의 선택에 따라 인류의 마지막 희망이 될 수도, 혹은 그저 똑똑한 괴짜로 남을 수도 있습니다.
-
-    </div>
-
-
-
-    <details style="margin-top: 15px;">
-
-      <summary style="cursor: pointer; font-size: 0.9em; color: #a29bfe; outline: none;">자세한 설정 보기 (Click)</summary>
-
-      <div style="padding-top: 10px; font-size: 0.85em; color: #aaa; border-top: 1px solid #333; margin-top: 10px;">
-
-        • <b>나이:</b> 측정 불가 (냉동 기간 제외 20대 후반 추정)<br>
-
-        • <b>상태:</b> 적응 중, 지적 우월감 또는 당혹감<br>
-
-        • <b>특이사항:</b> 22세기형 개인 단말기 소유
-
+    <div class="char-card">
+      <div class="char-img" style="background-image: url('https://via.placeholder.com/600x800/2d3748/ffffff?text=Character+Image+2');"></div>
+      <div class="char-info">
+        <div class="char-tags">
+          <span class="tag rank-a">A Class</span>
+          <span class="tag role">학생</span>
+        </div>
+        <h3 class="char-name">리네아</h3>
+        <div class="char-subtitle">CHARACTER PROFILE</div>
+        <div class="char-quote">
+          "괜찮아요... 비록 저는 쓸모없지만, 어떻게든 도와드리고 싶어요..."
+        </div>
+        <div class="char-attributes">
+          <div class="attr-row">
+            <span class="attr-label">주력 마법</span>
+            <span class="attr-value">치유 (미약함)</span>
+          </div>
+          <div class="attr-row">
+            <span class="attr-label">외모 특징</span>
+            <span class="attr-value">연갈색 단발, 눈물점</span>
+          </div>
+        </div>
+        <div class="char-desc">
+          <h4>역할 및 서사</h4>
+          <p>가장 밑바닥 시절 유일하게 곁을 지켜준 안식처. 마력이 부족해 무시당하지만, 특유의 헌신적인 성격으로 당신이 정점에 오르는 길을 보좌합니다.</p>
+        </div>
+        <details>
+          <summary>비밀 보기♥</summary>
+          <div class="details-content">
+            마력이 약한 대신 타인의 마력을 받아들여 증폭시키는 특이 체질입니다. 신체적 접촉을 통해 마력을 주입받으면 폭발적인 능력을 냅니다.
+          </div>
+        </details>
       </div>
+    </div>
+    </div>
+</section>
 
-    </details>
-
-  </div>
-
-</div>
+</body>
+</html>
