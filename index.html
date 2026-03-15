@@ -5,13 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>등장인물</title>
 <style>
-  /* --- 이 부분이 웹페이지의 디자인(스타일)을 담당하는 CSS 코드입니다 --- */
-  
   /* 전반적인 배경 및 기본 글꼴 설정 */
   body {
-    background-color: #0d1117; /* 더 깊은 다크 모드 배경색 */
-    color: #c9d1d9; /* 연한 회색 글자색 */
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
     margin: 0;
     padding: 60px 20px;
     line-height: 1.6;
@@ -30,7 +28,7 @@
   }
   .section-header h2 {
     font-size: 2.5em;
-    color: #ff9f43; /* 고급스러운 네온 오렌지색 */
+    color: #ff9f43;
     margin-bottom: 15px;
     letter-spacing: 3px;
     font-weight: 800;
@@ -41,34 +39,26 @@
     font-weight: 300;
   }
 
-  /* 캐릭터 카드 그리드 배치를 위한 컨테이너 */
+  /* 캐릭터 카드 그리드 */
   .character-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
-    justify-content: center; /* 카드들을 가운데 정렬 */
+    justify-content: center;
   }
 
   /* 캐릭터 카드 개별 항목 스타일 */
   .char-card {
-    background-color: #161b22; /* 카드 배경색 */
-    border: 1px solid #30363d; /* 미세한 테두리 */
-    border-radius: 16px; /* 둥근 모서리 */
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 16px;
     overflow: hidden;
-    width: calc(50% - 20px); /* 한 줄에 2개씩 배치 (여백 제외) */
-    min-width: 320px; /* 너무 좁아지지 않도록 최소 너비 설정 */
+    width: 450px; /* 카드가 1개이므로 보기 좋은 너비로 고정 */
+    max-width: 100%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   }
 
-  /* 반응형: 화면이 좁아지면 카드가 한 줄에 하나씩 보이게 함 */
-  @media (max-width: 768px) {
-    .char-card {
-      width: 100%;
-    }
-  }
-
-  /* 마우스 오버 시 효과 */
   .char-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 30px rgba(255, 159, 67, 0.2);
@@ -78,13 +68,12 @@
   /* 캐릭터 이미지 영역 */
   .char-img {
     width: 100%;
-    height: 400px; /* 이미지 높이 증가 */
+    height: 450px;
     background-color: #21262d;
     background-size: cover;
     background-position: center;
     position: relative;
   }
-  /* 이미지 하단에 그라데이션을 넣어 부드럽게 연결 */
   .char-img::after {
     content: '';
     position: absolute;
@@ -93,12 +82,10 @@
     background: linear-gradient(to bottom, transparent, #161b22);
   }
 
-  /* 캐릭터 상세 정보 텍스트 영역 */
   .char-info {
     padding: 30px;
   }
 
-  /* 클래스, 역할 태그 스타일 */
   .char-tags {
     display: flex;
     gap: 12px;
@@ -112,12 +99,9 @@
     letter-spacing: 1.5px;
     text-transform: uppercase;
   }
-  /* 클래스별 태그 색상 정의 */
   .tag.rank-s { background-color: #ff9f43; color: #000; }
-  .tag.rank-a { background-color: #f0f6fc; color: #161b22; }
   .tag.role { background-color: #2f3640; color: #f0f6fc; }
 
-  /* 캐릭터 이름 및 부제목 */
   .char-name {
     font-size: 2.2em;
     margin: 0 0 8px 0;
@@ -131,17 +115,15 @@
     margin-bottom: 25px;
   }
 
-  /* 캐릭터 대사 (인용문) 스타일 */
   .char-quote {
     font-style: italic;
     color: #c9d1d9;
-    border-left: 4px solid #ff9f43; /* 포인트 컬러 줄무늬 */
+    border-left: 4px solid #ff9f43;
     padding-left: 20px;
     margin: 0 0 30px 0;
     line-height: 1.8;
   }
 
-  /* 주력 마법 / 외모 특징 (표 형식) 스타일 */
   .char-attributes {
     background-color: #0d1117;
     border-radius: 10px;
@@ -154,56 +136,22 @@
     padding: 10px 0;
     border-bottom: 1px solid #21262d;
   }
-  .attr-row:last-child {
-    border-bottom: none;
-  }
+  .attr-row:last-child { border-bottom: none; }
   .attr-label { color: #8b949e; font-size: 0.95em; }
   .attr-value { color: #ff9f43; font-weight: 600; font-size: 0.95em; text-align: right; }
 
-  /* 역할 및 서사 제목 */
   .char-desc h4 {
     color: #f0f6fc;
     margin: 0 0 12px 0;
     font-size: 1.3em;
     font-weight: 700;
   }
-  /* 역할 및 서사 본문 */
   .char-desc p {
     color: #8b949e;
     font-size: 1.0em;
     line-height: 1.7;
-    margin: 0 0 25px 0;
+    margin: 0;
   }
-
-  /* 클릭하면 펼쳐지는 비밀 정보 (아코디언) 스타일 */
-  details {
-    background-color: #21262d;
-    border-radius: 10px;
-    margin-bottom: 12px;
-    overflow: hidden;
-    border: 1px solid #30363d;
-  }
-  summary {
-    padding: 18px;
-    cursor: pointer;
-    font-weight: 700;
-    color: #f85149; /* 매혹적인 핑크 레드색 */
-    list-style: none;
-    outline: none;
-    transition: color 0.2s ease;
-  }
-  summary:hover { color: #ff7b72; }
-  summary::-webkit-details-marker { display: none; }
-  details[open] summary { border-bottom: 1px solid #30363d; color: #ff7b72;}
-  .details-content {
-    padding: 18px 20px;
-    font-size: 0.95em;
-    color: #c9d1d9;
-    line-height: 1.7;
-    background-color: #161b22;
-  }
-  
-  /* --- 이 윗부분이 CSS 디자인 코드입니다 --- */
 </style>
 </head>
 <body>
@@ -215,9 +163,8 @@
   </div>
 
   <div class="character-grid">
-    
     <div class="char-card">
-      <div class="char-img" style="background-image: url(https://i.ifh.cc/j9Jcny.jpg);"></div>
+      <div class="char-img" style="background-image: url('https://i.ifh.cc/j9Jcny.jpg');"></div>
       
       <div class="char-info">
         <div class="char-tags">
@@ -225,7 +172,7 @@
           <span class="tag role">대통령</span>
         </div>
         
-        <h3 class="char-name">세레나 발렌타인</h3>
+        <h3 class="char-name">빈 고여</h3>
         <div class="char-subtitle">CHARACTER PROFILE</div>
         
         <div class="char-quote">
@@ -235,7 +182,7 @@
         <div class="char-attributes">
           <div class="attr-row">
             <span class="attr-label">성격</span>
-            <span class="attr-value">쾌활,친근,열정,순수</span>
+            <span class="attr-value">쾌활, 친근, 열정, 순수</span>
           </div>
           <div class="attr-row">
             <span class="attr-label">외모</span>
@@ -245,41 +192,8 @@
         
         <div class="char-desc">
           <h4>인물 특징</h4>
-          <p>아카데미 정점에 군림하는 오만한 공작 영애. 과거의 약속을 잊고 당신을 배신했으나, 당신이 힘을 각성함에 따라 점점 집착과 후회에 빠져들게 됩니다.</p>
-      </div>
-    </div>
-    <div class="char-card">
-      <div class="char-img" style="background-image: ![](https://i.ifh.cc/DTv1w5.jpg);"></div>
-      <div class="char-info">
-        <div class="char-tags">
-          <span class="tag rank-a">A Class</span>
-          <span class="tag role">학생</span>
+          <p>현대 문명이 무너진 대퇴화 시대, 가장 높은 지능(IQ 90)을 가진 덕분에 대통령이 된 인물입니다. 힘이 정의라고 믿는 무력파지만, 사실 누구보다 백성들을 아끼는 따뜻한 마음을 가지고 있습니다.</p>
         </div>
-        <h3 class="char-name">리네아</h3>
-        <div class="char-subtitle">CHARACTER PROFILE</div>
-        <div class="char-quote">
-          "괜찮아요... 비록 저는 쓸모없지만, 어떻게든 도와드리고 싶어요..."
-        </div>
-        <div class="char-attributes">
-          <div class="attr-row">
-            <span class="attr-label">주력 마법</span>
-            <span class="attr-value">치유 (미약함)</span>
-          </div>
-          <div class="attr-row">
-            <span class="attr-label">외모 특징</span>
-            <span class="attr-value">연갈색 단발, 눈물점</span>
-          </div>
-        </div>
-        <div class="char-desc">
-          <h4>인물 소</h4>
-          <p>가장 밑바닥 시절 유일하게 곁을 지켜준 안식처. 마력이 부족해 무시당하지만, 특유의 헌신적인 성격으로 당신이 정점에 오르는 길을 보좌합니다.</p>
-        </div>
-        <details>
-          <summary>비밀 보기♥</summary>
-          <div class="details-content">
-            마력이 약한 대신 타인의 마력을 받아들여 증폭시키는 특이 체질입니다. 신체적 접촉을 통해 마력을 주입받으면 폭발적인 능력을 냅니다.
-          </div>
-        </details>
       </div>
     </div>
     </div>
